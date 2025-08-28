@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # Serviço 1: Sua aplicação web
+  web:
+    build: .
+    container_name: checklist_web
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+
+  # Serviço 2: O banco de dados MySQL
+  db:
+    image: mysql:8.0
+    container_name: checklist_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "Plp@2020"
+      MYSQL_DATABASE: "checklist_db"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
